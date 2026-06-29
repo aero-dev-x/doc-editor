@@ -18,7 +18,9 @@ htmlcov/
 
 # Environment — never commit secrets
 .env
-*.env.local
+.env.local
+backend/.env
+frontend/.env
 
 # Node
 node_modules/

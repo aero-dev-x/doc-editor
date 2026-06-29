@@ -25,9 +25,10 @@ export function useDocumentSocket({ docId, token, onRemoteUpdate }: Options) {
   useEffect(() => {
     if (!token) return;
 
-    const proto = window.location.protocol === "https:" ? "wss" : "ws";
-    const host = window.location.host;
-    const url = `${proto}://${host}/ws/documents/${docId}?token=${token}`;
+    const apiUrl = import.meta.env.VITE_API_URL || "";
+    const url = apiUrl
+      ? `${apiUrl.replace(/^http/, "ws")}/ws/documents/${docId}?token=${token}`
+      : `${window.location.protocol === "https:" ? "wss" : "ws"}://${window.location.host}/ws/documents/${docId}?token=${token}`;
     const ws = new WebSocket(url);
     wsRef.current = ws;
 
